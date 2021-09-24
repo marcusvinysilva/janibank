@@ -6,6 +6,7 @@ import {
   Post,
   Put,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { Conta } from './conta';
 import { ContaService } from './conta.service';
@@ -38,5 +39,11 @@ export class ContaController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     this.contaService.delete(id);
+  }
+
+  @Patch(':id/saque')
+  saque(@Param('id') id: string, @Body() conta: Conta, @Body() valor: number) {
+    conta.id = id;
+    return this.contaService.saque(conta, valor);
   }
 }

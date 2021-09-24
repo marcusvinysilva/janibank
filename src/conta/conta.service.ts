@@ -53,4 +53,16 @@ export class ContaService {
     const index = this.contas.findIndex((value) => value.id == id);
     this.contas.splice(index, 1);
   }
+
+  saque(conta: Conta, valor: number) {
+    const contaArray = this.findOne(conta.id);
+    if (contaArray) {
+      if (conta.saldo >= valor) {
+        contaArray.saldo = conta.saldo - valor;
+      } else {
+        return { statusCode: 404, message: 'Dinheiro não encontrado' };
+      }
+    }
+    return contaArray.saldo;
+  }
 }
